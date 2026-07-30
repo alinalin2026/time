@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, Loader2 } from "lucide-react";
+import { CheckCircle2, Loader2, Globe } from "lucide-react";
 
 /**
  * Quiz Design Philosophy:
@@ -11,7 +11,14 @@ import { CheckCircle2, Loader2 } from "lucide-react";
  * - Final CTA redirects to signup/main platform
  */
 
-type QuizStep = "q1" | "q2" | "q3" | "q4" | "loading" | "result";
+// Tier 1 geos get the real offer; everyone else gets routed to the VPN offer instead.
+const TIER1_COUNTRIES = new Set(["US", "GB", "CA", "AU", "DE"]);
+const TIER1_OFFER_URL =
+  "https://afflat3d2.com/trk/lnk/8613E3A5-B445-46B2-BA81-CD563CDBA746/?o=30617&c=918277&a=798445&k=768ACFA5903B7AC0B88F2476C065073E&l=35113";
+const VPN_OFFER_URL =
+  "https://afflat3d2.com/trk/lnk/8613E3A5-B445-46B2-BA81-CD563CDBA746/?o=24611&c=918277&a=798445&k=F4859346A6F515A3DC1DD17791DFD840&l=33159";
+
+type QuizStep = "q1" | "q2" | "q3" | "q4" | "loading" | "result" | "not_available";
 
 interface QuizAnswers {
   q1: string | null; // "yes" | "not_now"
@@ -38,16 +45,31 @@ export default function Quiz() {
       else if (questionKey === "q2") setCurrentStep("q3");
       else if (questionKey === "q3") setCurrentStep("q4");
       else if (questionKey === "q4") {
-        // Trigger loading state before result
+        // Trigger loading state before result, then route by geo
         setCurrentStep("loading");
-        setTimeout(() => setCurrentStep("result"), 2000);
+
+        const geoLookup = fetch("/api/geo")
+          .then((r) => r.json())
+          .then((data: { country: string | null }) => data.country)
+          .catch(() => null);
+        const minDelay = new Promise((resolve) => setTimeout(resolve, 2000));
+
+        Promise.all([geoLookup, minDelay]).then(([country]) => {
+          const isTier1 = !!country && TIER1_COUNTRIES.has(country.toUpperCase());
+          setCurrentStep(isTier1 ? "result" : "not_available");
+        });
       }
     }, 300);
   };
 
   const handleClaimSpot = () => {
-    // Redirect to main signup or platform
-    window.location.href = "https://tasksrewards.com/signup";
+    // Tier 1 geo - send to the real offer
+    window.location.href = TIER1_OFFER_URL;
+  };
+
+  const handleTryVpn = () => {
+    // Non-tier-1 geo - send to the VPN offer instead
+    window.location.href = VPN_OFFER_URL;
   };
 
   const progressPercentage =
@@ -57,7 +79,10 @@ export default function Quiz() {
         ? 50
         : currentStep === "q3"
           ? 75
-          : currentStep === "q4" || currentStep === "loading" || currentStep === "result"
+          : currentStep === "q4" ||
+              currentStep === "loading" ||
+              currentStep === "result" ||
+              currentStep === "not_available"
             ? 100
             : 0;
 
@@ -90,7 +115,7 @@ export default function Quiz() {
             />
           </div>
           <p className="text-xs text-gray-500 mt-2 text-center">
-            {currentStep === "loading" || currentStep === "result"
+            {currentStep === "loading" || currentStep === "result" || currentStep === "not_available"
               ? "Checking eligibility..."
               : `Question ${
                   currentStep === "q1"
@@ -260,6 +285,45 @@ export default function Quiz() {
 
             <p className="text-xs text-gray-500">
               No credit card required. Takes less than 5 minutes.
+            </p>
+          </div>
+        )}
+
+        {/* Not Available Screen (non-Tier-1 geo) */}
+        {currentStep === "not_available" && (
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-300 text-center">
+            <div className="flex justify-center mb-6">
+              <Globe className="w-16 h-16 text-gray-400" />
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              Sorry, We're Not Available In Your Country
+            </h2>
+            <p className="text-gray-600 mb-8">
+              tasksrewards is currently only open to members in a handful of countries, and we couldn't verify eligibility from your location.
+            </p>
+
+            {/* VPN Offer Banner */}
+            <div className="bg-gradient-to-r from-purple-600 to-purple-700 rounded-xl p-6 mb-8 text-white shadow-lg border border-purple-500">
+              <div className="mb-3">
+                <span className="inline-block bg-white/20 px-3 py-1 rounded-full text-xs font-semibold mb-2">
+                  🌍 UNLOCK ACCESS
+                </span>
+              </div>
+              <h3 className="text-2xl font-bold mb-2">Have You Tried NordVPN?</h3>
+              <p className="text-purple-100 mb-4 text-sm">
+                Thousands of members securely connect from a supported region using a trusted VPN. NordVPN is fast, reliable, and takes less than a minute to set up.
+              </p>
+            </div>
+
+            <Button
+              onClick={handleTryVpn}
+              className="w-full h-14 text-base font-semibold bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-all mb-4 shadow-md"
+            >
+              Get NordVPN →
+            </Button>
+
+            <p className="text-xs text-gray-500">
+              Try again once you're connected.
             </p>
           </div>
         )}
