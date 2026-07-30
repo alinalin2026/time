@@ -31,7 +31,7 @@ export default function Home() {
         <div className="container flex items-center justify-between py-4">
           <div className="flex items-center gap-3">
             <img
-              src="/manus-storage/timebucks-logo_cef7d56e.png"
+              src="/images/timebucks-logo.png"
               alt="TimeBucks"
               className="w-8 h-8"
             />
@@ -50,7 +50,7 @@ export default function Home() {
       <section
         className="relative py-16 md:py-24 overflow-hidden"
         style={{
-          backgroundImage: "url('/manus-storage/timebucks-hero-bg_d2aebe43.png')",
+          backgroundImage: "url('/images/timebucks-hero.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -255,7 +255,7 @@ export default function Home() {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <img
-                  src="/manus-storage/timebucks-logo_cef7d56e.png"
+                  src="/images/timebucks-logo.png"
                   alt="TimeBucks"
                   className="w-6 h-6"
                 />
