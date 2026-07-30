@@ -18,6 +18,11 @@ async function startServer() {
 
   app.use(express.static(staticPath));
 
+  // Mirrors api/geo.ts (Vercel Edge Function) for non-Vercel hosts
+  app.get("/api/geo", (req, res) => {
+    res.json({ country: req.headers["x-vercel-ip-country"] ?? null });
+  });
+
   // Handle client-side routing - serve index.html for all routes
   app.get("*", (_req, res) => {
     res.sendFile(path.join(staticPath, "index.html"));
