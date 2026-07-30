@@ -17,9 +17,12 @@ import Terms from "./pages/Terms";
 import Contact from "./pages/Contact";
 import Disclaimer from "./pages/Disclaimer";
 import Dashboard from "./pages/Dashboard";
+import { useAnalyticsPageview } from "./hooks/useAnalyticsPageview";
 
 
 function Router() {
+  useAnalyticsPageview();
+
   return (
     <Switch>
       <Route path={"/"} component={Home} />
