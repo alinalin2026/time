@@ -6,6 +6,16 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Quiz from "./pages/Quiz";
+import HowItWorks from "./pages/HowItWorks";
+import Opportunities from "./pages/Opportunities";
+import Rewards from "./pages/Rewards";
+import About from "./pages/About";
+import Blog from "./pages/Blog";
+import Careers from "./pages/Careers";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
+import Contact from "./pages/Contact";
+import Disclaimer from "./pages/Disclaimer";
 
 
 function Router() {
@@ -13,6 +23,16 @@ function Router() {
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path={"/quiz"} component={Quiz} />
+      <Route path={"/how-it-works"} component={HowItWorks} />
+      <Route path={"/opportunities"} component={Opportunities} />
+      <Route path={"/rewards"} component={Rewards} />
+      <Route path={"/about"} component={About} />
+      <Route path={"/blog"} component={Blog} />
+      <Route path={"/careers"} component={Careers} />
+      <Route path={"/privacy"} component={Privacy} />
+      <Route path={"/terms"} component={Terms} />
+      <Route path={"/contact"} component={Contact} />
+      <Route path={"/disclaimer"} component={Disclaimer} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

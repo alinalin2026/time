@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2, MessageCircle, Zap } from "lucide-react";
 import { useState, useEffect } from "react";
+import { Link } from "wouter";
 
 /**
  * tasksrewards Prelander
@@ -264,25 +265,25 @@ export default function Home() {
             <div>
               <h4 className="font-semibold text-white mb-4">Platform</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition">How It Works</a></li>
-                <li><a href="#" className="hover:text-white transition">Opportunities</a></li>
-                <li><a href="#" className="hover:text-white transition">Rewards</a></li>
+                <li><Link href="/how-it-works" className="hover:text-white transition">How It Works</Link></li>
+                <li><Link href="/opportunities" className="hover:text-white transition">Opportunities</Link></li>
+                <li><Link href="/rewards" className="hover:text-white transition">Rewards</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold text-white mb-4">Company</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition">About</a></li>
-                <li><a href="#" className="hover:text-white transition">Blog</a></li>
-                <li><a href="#" className="hover:text-white transition">Careers</a></li>
+                <li><Link href="/about" className="hover:text-white transition">About</Link></li>
+                <li><Link href="/blog" className="hover:text-white transition">Blog</Link></li>
+                <li><Link href="/careers" className="hover:text-white transition">Careers</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold text-white mb-4">Legal</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition">Privacy</a></li>
-                <li><a href="#" className="hover:text-white transition">Terms</a></li>
-                <li><a href="#" className="hover:text-white transition">Contact</a></li>
+                <li><Link href="/privacy" className="hover:text-white transition">Privacy</Link></li>
+                <li><Link href="/terms" className="hover:text-white transition">Terms</Link></li>
+                <li><Link href="/contact" className="hover:text-white transition">Contact</Link></li>
               </ul>
             </div>
           </div>
