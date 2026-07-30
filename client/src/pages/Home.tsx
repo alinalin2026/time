@@ -3,7 +3,7 @@ import { ArrowRight, CheckCircle2, MessageCircle, Zap } from "lucide-react";
 import { useState, useEffect } from "react";
 
 /**
- * TimeBucks Prelander
+ * tasksrewards Prelander
  * 
  * Design Philosophy: "Empowered Opinions"
  * - Purple-accented, women-centric rewards platform
@@ -20,8 +20,7 @@ export default function Home() {
   }, []);
 
   const handleQualify = () => {
-    // Redirect to qualification form or next step
-    window.location.href = "#qualify";
+    window.location.href = "/quiz";
   };
 
   return (
@@ -30,12 +29,10 @@ export default function Home() {
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-purple-100">
         <div className="container flex items-center justify-between py-4">
           <div className="flex items-center gap-3">
-            <img
-              src="/images/timebucks-logo.png"
-              alt="TimeBucks"
-              className="w-8 h-8"
-            />
-            <span className="text-xl font-bold text-gray-900">TimeBucks</span>
+            <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
+              <span className="text-white font-bold text-sm">✓</span>
+            </div>
+            <span className="text-xl font-bold text-gray-900">tasksrewards</span>
           </div>
           <Button
             onClick={handleQualify}
@@ -83,7 +80,7 @@ export default function Home() {
         <div className="container max-w-5xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Why Join TimeBucks?
+              Why Join tasksrewards?
             </h2>
             <p className="text-gray-600 text-lg">
               We value your time and your perspective
@@ -233,7 +230,7 @@ export default function Home() {
             Ready to Get Started?
           </h2>
           <p className="text-gray-600 text-lg mb-8">
-            See if you qualify for TimeBucks. It only takes a few minutes, and there's no commitment.
+            See if you qualify for tasksrewards. It only takes a few minutes, and there's no commitment.
           </p>
           <Button
             onClick={handleQualify}
@@ -255,12 +252,10 @@ export default function Home() {
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <img
-                  src="/images/timebucks-logo.png"
-                  alt="TimeBucks"
-                  className="w-6 h-6"
-                />
-                <span className="font-bold text-white">TimeBucks</span>
+                <div className="w-6 h-6 bg-purple-600 rounded-md flex items-center justify-center flex-shrink-0">
+                  <span className="text-white font-bold text-xs">✓</span>
+                </div>
+                <span className="font-bold text-white">tasksrewards</span>
               </div>
               <p className="text-sm">
                 Empowering women to earn rewards by sharing their opinions.
@@ -292,7 +287,7 @@ export default function Home() {
             </div>
           </div>
           <div className="border-t border-gray-800 pt-8 text-sm text-center">
-            <p>&copy; 2026 TimeBucks. All rights reserved. | Women-focused rewards platform.</p>
+            <p>&copy; 2026 tasksrewards. All rights reserved. | Women-focused rewards platform.</p>
           </div>
         </div>
       </footer>
