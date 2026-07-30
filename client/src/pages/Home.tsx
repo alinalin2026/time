@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2, MessageCircle, Zap } from "lucide-react";
 import { useState, useEffect } from "react";
-import { Link } from "wouter";
 
 /**
  * TimeBucks Prelander
@@ -9,8 +8,8 @@ import { Link } from "wouter";
  * Design Philosophy: "Empowered Opinions"
  * - Purple-accented, women-centric rewards platform
  * - Focus on trust, clarity, and opportunity
- * - FB & FTC compliant (no earnings guarantees, affiliate disclosure)
- * - Clear "See if you qualify" CTA
+ * - No earnings claims (FB-compliant)
+ * - Clear \"See if you qualify\" CTA
  */
 
 export default function Home() {
@@ -64,11 +63,8 @@ export default function Home() {
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
             Your Opinions Are Worth Something
           </h1>
-          <p className="text-lg md:text-xl text-gray-600 mb-6 leading-relaxed">
-            Join thousands of women sharing their opinions and participating in surveys. Flexible opportunities to earn rewards on your own schedule.
-          </p>
-          <p className="text-xs text-gray-500 mb-8 italic">
-            *Earnings vary based on survey availability and eligibility. See our <Link href="/disclaimer" className="text-purple-600 hover:text-purple-700 underline">disclaimer</Link> for details.
+          <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
+            Join thousands of women earning flexible rewards by sharing your thoughts and opinions. No experience needed—just your honest perspective.
           </p>
           <Button
             onClick={handleQualify}
@@ -94,16 +90,16 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {/* Pillar 1: Flexible Opportunities */}
+            {/* Pillar 1: Rewards */}
             <div className="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
               <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-purple-100 mb-6">
                 <Zap className="w-6 h-6 text-purple-600" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">
-                Flexible Opportunities
+                Earn Rewards
               </h3>
               <p className="text-gray-600">
-                Participate in surveys and studies at your own pace. Available opportunities vary based on your profile and location.
+                Complete surveys, share opinions, and participate in studies. Earn rewards for each contribution.
               </p>
             </div>
 
@@ -113,10 +109,10 @@ export default function Home() {
                 <MessageCircle className="w-6 h-6 text-purple-600" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">
-                Your Schedule
+                Work Your Way
               </h3>
               <p className="text-gray-600">
-                Work on your own terms. No commitments or quotas—just opportunities that fit your lifestyle.
+                Participate on your schedule. No commitments, no quotas—just opportunities that fit your life.
               </p>
             </div>
 
@@ -158,10 +154,10 @@ export default function Home() {
               </div>
               <div className="flex-1 pt-1">
                 <h3 className="text-xl font-bold text-gray-900 mb-2">
-                  Complete Your Profile
+                  Answer a Few Questions
                 </h3>
                 <p className="text-gray-600">
-                  Answer a few questions about yourself. This helps match you with surveys and opportunities that fit your profile.
+                  Tell us about yourself and what you're interested in. This helps us match you with opportunities that fit.
                 </p>
               </div>
             </div>
@@ -192,10 +188,10 @@ export default function Home() {
               </div>
               <div className="flex-1 pt-1">
                 <h3 className="text-xl font-bold text-gray-900 mb-2">
-                  Start Participating
+                  Start Earning
                 </h3>
                 <p className="text-gray-600">
-                  Once approved, browse available opportunities and participate in surveys and studies that match your profile.
+                  Once approved, browse available opportunities and start earning rewards by sharing your opinions.
                 </p>
               </div>
             </div>
@@ -210,25 +206,22 @@ export default function Home() {
             Trusted by Women Everywhere
           </h2>
           <p className="text-gray-600 text-lg mb-8">
-            Join a growing community of women who are participating in surveys on their own terms. Your data is secure, your privacy is protected, and your opinions are valued.
+            Join a growing community of women who are earning rewards on their own terms. Your data is secure, your privacy is protected, and your opinions are valued.
           </p>
-          <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-600">
+          <div className="flex justify-center gap-8 text-sm text-gray-600">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-5 h-5 text-purple-600" />
               <span>100% Secure</span>
             </div>
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-5 h-5 text-purple-600" />
-              <span>Privacy Protected</span>
+              <span>Privacy First</span>
             </div>
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-5 h-5 text-purple-600" />
               <span>No Spam</span>
             </div>
           </div>
-          <p className="text-xs text-gray-500 mt-6 text-center italic">
-            Affiliate Disclosure: We earn a commission when you sign up through this site. This does not affect your experience or pricing.
-          </p>
         </div>
       </section>
 
@@ -269,7 +262,7 @@ export default function Home() {
                 <span className="font-bold text-white">TimeBucks</span>
               </div>
               <p className="text-sm">
-                Empowering women to share their opinions and participate in surveys.
+                Empowering women to earn rewards by sharing their opinions.
               </p>
             </div>
             <div>
@@ -277,13 +270,13 @@ export default function Home() {
               <ul className="space-y-2 text-sm">
                 <li><a href="#" className="hover:text-white transition">How It Works</a></li>
                 <li><a href="#" className="hover:text-white transition">Opportunities</a></li>
-                <li><a href="#" className="hover:text-white transition">FAQ</a></li>
+                <li><a href="#" className="hover:text-white transition">Rewards</a></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold text-white mb-4">Company</h4>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/contact" className="hover:text-white transition">Contact</Link></li>
+                <li><a href="#" className="hover:text-white transition">About</a></li>
                 <li><a href="#" className="hover:text-white transition">Blog</a></li>
                 <li><a href="#" className="hover:text-white transition">Careers</a></li>
               </ul>
@@ -291,28 +284,14 @@ export default function Home() {
             <div>
               <h4 className="font-semibold text-white mb-4">Legal</h4>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/terms" className="hover:text-white transition">Terms</Link></li>
-                <li><Link href="/privacy" className="hover:text-white transition">Privacy</Link></li>
-                <li><Link href="/disclaimer" className="hover:text-white transition">Disclaimer</Link></li>
+                <li><a href="#" className="hover:text-white transition">Privacy</a></li>
+                <li><a href="#" className="hover:text-white transition">Terms</a></li>
+                <li><a href="#" className="hover:text-white transition">Contact</a></li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-800 pt-8">
-            <div className="flex flex-wrap justify-center gap-4 mb-6 text-sm">
-              <Link href="/terms" className="text-gray-400 hover:text-white transition">Terms of Service</Link>
-              <span className="text-gray-600">•</span>
-              <Link href="/privacy" className="text-gray-400 hover:text-white transition">Privacy Policy</Link>
-              <span className="text-gray-600">•</span>
-              <Link href="/disclaimer" className="text-gray-400 hover:text-white transition">Disclaimer</Link>
-              <span className="text-gray-600">•</span>
-              <Link href="/contact" className="text-gray-400 hover:text-white transition">Contact</Link>
-            </div>
-            <p className="text-xs text-gray-500 text-center">
-              &copy; 2026 TimeBucks Prelander. All rights reserved. | This is a prelanding page for the TimeBucks platform.
-            </p>
-            <p className="text-xs text-gray-600 text-center mt-3">
-              <em>Disclaimer: We are not affiliated with TimeBucks except as a referral partner. See our <Link href="/disclaimer" className="text-gray-400 hover:text-white underline">disclaimer</Link> for important information about earnings and third-party services.</em>
-            </p>
+          <div className="border-t border-gray-800 pt-8 text-sm text-center">
+            <p>&copy; 2026 TimeBucks. All rights reserved. | Women-focused rewards platform.</p>
           </div>
         </div>
       </footer>
