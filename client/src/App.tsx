@@ -16,6 +16,7 @@ import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import Contact from "./pages/Contact";
 import Disclaimer from "./pages/Disclaimer";
+import Dashboard from "./pages/Dashboard";
 
 
 function Router() {
@@ -33,6 +34,7 @@ function Router() {
       <Route path={"/terms"} component={Terms} />
       <Route path={"/contact"} component={Contact} />
       <Route path={"/disclaimer"} component={Disclaimer} />
+      <Route path={"/dashboard"} component={Dashboard} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

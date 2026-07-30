@@ -56,6 +56,11 @@ export default function Quiz() {
 
         Promise.all([geoLookup, minDelay]).then(([country]) => {
           const isTier1 = !!country && TIER1_COUNTRIES.has(country.toUpperCase());
+          fetch("/api/track", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ outcome: isTier1 ? "qualified" : "not_qualified" }),
+          }).catch(() => {});
           setCurrentStep(isTier1 ? "result" : "not_available");
         });
       }
