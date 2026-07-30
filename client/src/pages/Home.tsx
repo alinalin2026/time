@@ -48,32 +48,33 @@ export default function Home() {
 
       {/* Hero Section */}
       <section
-        className="relative py-16 md:py-24 overflow-hidden"
+        className="relative py-16 md:py-32 overflow-hidden min-h-[560px] flex items-center"
         style={{
           backgroundImage: "url('/images/timebucks-hero.jpg')",
           backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundPosition: "right center",
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-white/40 to-white/20" />
-        <div className={`container relative z-10 max-w-3xl mx-auto text-center transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
-          <div className="flex justify-center mb-6">
-            <div className="accent-divider" />
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-            Your Opinions Are Worth Something
-          </h1>
-          <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
-            Join thousands of women earning flexible rewards by sharing your thoughts and opinions. No experience needed—just your honest perspective.
-          </p>
-          <Button
-            onClick={handleQualify}
-            size="lg"
-            className="bg-purple-600 hover:bg-purple-700 text-white btn-hover inline-flex items-center gap-2"
+        <div className="container relative z-10">
+          <div
+            className={`max-w-xl bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg p-8 md:p-10 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
           >
-            See if you qualify
-            <ArrowRight className="w-5 h-5" />
-          </Button>
+            <div className="accent-divider mb-6" />
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+              Your Opinions Are Worth Something
+            </h1>
+            <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
+              Join thousands of women earning flexible rewards by sharing your thoughts and opinions. No experience needed—just your honest perspective.
+            </p>
+            <Button
+              onClick={handleQualify}
+              size="lg"
+              className="bg-purple-600 hover:bg-purple-700 text-white btn-hover inline-flex items-center gap-2"
+            >
+              See if you qualify
+              <ArrowRight className="w-5 h-5" />
+            </Button>
+          </div>
         </div>
       </section>
 
