@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import { Mail, MessageSquare } from "lucide-react";
+import { Mail, MessageSquare, Phone, MapPin } from "lucide-react";
 import PageShell from "@/components/PageShell";
 
 export default function Contact() {
@@ -23,6 +23,25 @@ export default function Contact() {
           <a href="mailto:support@tasksrewards.com" className="text-purple-600 hover:text-purple-700 font-semibold break-all">
             support@tasksrewards.com
           </a>
+        </div>
+
+        <div className="bg-gray-50 rounded-lg p-8 border border-gray-200">
+          <div className="flex items-center gap-3 mb-4">
+            <Phone className="w-6 h-6 text-purple-600" />
+            <h3 className="text-lg font-bold text-gray-900">Phone</h3>
+          </div>
+          <p className="text-gray-600 mb-4">Give us a call:</p>
+          <a href="tel:+18334482561" className="text-purple-600 hover:text-purple-700 font-semibold">
+            +1 833-448-2561
+          </a>
+        </div>
+
+        <div className="bg-gray-50 rounded-lg p-8 border border-gray-200">
+          <div className="flex items-center gap-3 mb-4">
+            <MapPin className="w-6 h-6 text-purple-600" />
+            <h3 className="text-lg font-bold text-gray-900">Mailing Address</h3>
+          </div>
+          <p className="text-gray-600">1701 Simond Ave Unit 310, Austin, TX 78723, USA</p>
         </div>
 
         <div className="bg-gray-50 rounded-lg p-8 border border-gray-200">

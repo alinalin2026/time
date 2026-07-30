@@ -261,6 +261,14 @@ export default function Home() {
               <p className="text-sm">
                 Empowering women to earn rewards by sharing their opinions.
               </p>
+              <div className="mt-4 text-sm text-gray-400 space-y-1">
+                <p>1701 Simond Ave Unit 310, Austin, TX 78723, USA</p>
+                <p>
+                  <a href="tel:+18334482561" className="hover:text-white transition">
+                    +1 833-448-2561
+                  </a>
+                </p>
+              </div>
             </div>
             <div>
               <h4 className="font-semibold text-white mb-4">Platform</h4>
