@@ -2,7 +2,6 @@
   "buildCommand": "pnpm build",
   "outputDirectory": "dist/public",
   "rewrites": [
-    { "source": "/go/:slug", "destination": "/api/go/:slug" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
