@@ -1,8 +1,13 @@
-import { getRedis } from "../_lib/redis";
+import { getRedis } from "./api/_lib/redis";
 
-export const config = { runtime: "edge" };
+// Edge Middleware runs before static files, functions, and vercel.json
+// rewrites are even considered, so /go/:slug is guaranteed to be intercepted
+// here rather than depending on rewrite-ordering to reach a nested function.
+export const config = {
+  matcher: "/go/:slug",
+};
 
-export default async function handler(request: Request) {
+export default async function middleware(request: Request) {
   const url = new URL(request.url);
   const slug = decodeURIComponent(url.pathname.split("/").filter(Boolean).pop() || "unknown");
   const country = request.headers.get("x-vercel-ip-country") || "XX";
