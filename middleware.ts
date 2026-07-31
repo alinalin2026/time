@@ -7,7 +7,7 @@ export const config = {
   matcher: "/go/:slug",
 };
 
-export default async function middleware(request: Request) {
+async function middleware(request: Request) {
   const url = new URL(request.url);
   const slug = decodeURIComponent(url.pathname.split("/").filter(Boolean).pop() || "unknown");
   const country = request.headers.get("x-vercel-ip-country") || "XX";
@@ -35,6 +35,12 @@ export default async function middleware(request: Request) {
     headers: {
       Location: new URL("/", url.origin).toString(),
       "Set-Cookie": `tr_src=${encodeURIComponent(slug)}; Path=/; Max-Age=2592000; SameSite=Lax; Secure`,
+      "Cache-Control": "no-store",
     },
   });
 }
+
+// Vercel's standalone (non-Next.js) Edge Middleware convention expects a
+// default export, but exporting both here removes any doubt.
+export default middleware;
+export { middleware };
