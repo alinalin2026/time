@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, Loader2, Globe, Share2 } from "lucide-react";
+import { CheckCircle2, Loader2, Globe } from "lucide-react";
 import { TIER1_OFFER_URL, VPN_OFFER_URL, withSubid } from "@/lib/tracking";
 
 /**
@@ -14,9 +14,8 @@ import { TIER1_OFFER_URL, VPN_OFFER_URL, withSubid } from "@/lib/tracking";
 
 // Tier 1 geos get the real offer; everyone else gets routed to the VPN offer instead.
 const TIER1_COUNTRIES = new Set(["US", "GB", "CA", "AU", "DE"]);
-const SHARE_PIN_URL = "https://pin.it/2yb3QqlP2";
 
-type QuizStep = "q1" | "q2" | "q3" | "q4" | "loading" | "result" | "share_gate" | "not_available";
+type QuizStep = "q1" | "q2" | "q3" | "q4" | "loading" | "result" | "not_available";
 
 interface QuizAnswers {
   q1: string | null; // "yes" | "not_now"
@@ -59,7 +58,7 @@ export default function Quiz() {
             headers: { "content-type": "application/json" },
             body: JSON.stringify({ outcome: isTier1 ? "qualified" : "not_qualified" }),
           }).catch(() => {});
-          setCurrentStep(isTier1 ? "result" : "share_gate");
+          setCurrentStep(isTier1 ? "result" : "not_available");
         });
       }
     }, 300);
@@ -75,13 +74,6 @@ export default function Quiz() {
     window.location.href = withSubid(VPN_OFFER_URL);
   };
 
-  const handleShareUnlock = () => {
-    // Opens the pin so the visitor can actually share/save it, then reveals
-    // the offer - the share is what unlocks this, stated plainly up front.
-    window.open(SHARE_PIN_URL, "_blank", "noopener,noreferrer");
-    setCurrentStep("not_available");
-  };
-
   const progressPercentage =
     currentStep === "q1"
       ? 25
@@ -92,7 +84,6 @@ export default function Quiz() {
           : currentStep === "q4" ||
               currentStep === "loading" ||
               currentStep === "result" ||
-              currentStep === "share_gate" ||
               currentStep === "not_available"
             ? 100
             : 0;
@@ -126,7 +117,7 @@ export default function Quiz() {
             />
           </div>
           <p className="text-xs text-gray-500 mt-2 text-center">
-            {currentStep === "loading" || currentStep === "result" || currentStep === "share_gate" || currentStep === "not_available"
+            {currentStep === "loading" || currentStep === "result" || currentStep === "not_available"
               ? "Checking eligibility..."
               : `Question ${
                   currentStep === "q1"
@@ -297,29 +288,6 @@ export default function Quiz() {
             <p className="text-xs text-gray-500">
               No credit card required. Takes less than 5 minutes.
             </p>
-          </div>
-        )}
-
-        {/* Share Gate - unlocks the not_available/VPN screen */}
-        {currentStep === "share_gate" && (
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-300 text-center">
-            <div className="flex justify-center mb-6">
-              <Share2 className="w-16 h-16 text-purple-600" />
-            </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">One Quick Step</h2>
-            <p className="text-gray-600 mb-8">
-              Share this pin on Pinterest to unlock your alternative offer below.
-            </p>
-
-            <Button
-              onClick={handleShareUnlock}
-              className="w-full h-14 text-base font-semibold bg-[#E60023] hover:bg-[#ad081b] text-white rounded-lg transition-all mb-4 shadow-md inline-flex items-center justify-center gap-2"
-            >
-              <Share2 className="w-5 h-5" />
-              Share on Pinterest to Unlock
-            </Button>
-
-            <p className="text-xs text-gray-500">Opens Pinterest in a new tab, then unlocks the offer below.</p>
           </div>
         )}
 
