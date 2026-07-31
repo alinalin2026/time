@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2, MessageCircle, Zap } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
-import { TIER1_OFFER_URL, withSubid } from "@/lib/tracking";
 
 /**
  * tasksrewards Prelander
@@ -22,7 +21,7 @@ export default function Home() {
   }, []);
 
   const handleQualify = () => {
-    window.location.href = withSubid(TIER1_OFFER_URL);
+    window.location.href = "/quiz";
   };
 
   return (
