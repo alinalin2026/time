@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, Loader2, Globe } from "lucide-react";
+import { CheckCircle2, Loader2, Globe, Share2 } from "lucide-react";
 
 /**
  * Quiz Design Philosophy:
@@ -17,8 +17,9 @@ const TIER1_OFFER_URL =
   "https://afflat3d2.com/trk/lnk/8613E3A5-B445-46B2-BA81-CD563CDBA746/?o=30617&c=918277&a=798445&k=768ACFA5903B7AC0B88F2476C065073E&l=35113";
 const VPN_OFFER_URL =
   "https://afflat3d2.com/trk/lnk/8613E3A5-B445-46B2-BA81-CD563CDBA746/?o=24611&c=918277&a=798445&k=F4859346A6F515A3DC1DD17791DFD840&l=33159";
+const SHARE_PIN_URL = "https://pin.it/2yb3QqlP2";
 
-type QuizStep = "q1" | "q2" | "q3" | "q4" | "loading" | "result" | "not_available";
+type QuizStep = "q1" | "q2" | "q3" | "q4" | "loading" | "result" | "share_gate" | "not_available";
 
 // Reads the slug a visitor arrived through (set by /go/<slug>), so we can pass
 // it along to the affiliate offer as a sub-ID and see which source converts.
@@ -74,7 +75,7 @@ export default function Quiz() {
             headers: { "content-type": "application/json" },
             body: JSON.stringify({ outcome: isTier1 ? "qualified" : "not_qualified" }),
           }).catch(() => {});
-          setCurrentStep(isTier1 ? "result" : "not_available");
+          setCurrentStep(isTier1 ? "result" : "share_gate");
         });
       }
     }, 300);
@@ -90,6 +91,13 @@ export default function Quiz() {
     window.location.href = withSubid(VPN_OFFER_URL);
   };
 
+  const handleShareUnlock = () => {
+    // Opens the pin so the visitor can actually share/save it, then reveals
+    // the offer - the share is what unlocks this, stated plainly up front.
+    window.open(SHARE_PIN_URL, "_blank", "noopener,noreferrer");
+    setCurrentStep("not_available");
+  };
+
   const progressPercentage =
     currentStep === "q1"
       ? 25
@@ -100,6 +108,7 @@ export default function Quiz() {
           : currentStep === "q4" ||
               currentStep === "loading" ||
               currentStep === "result" ||
+              currentStep === "share_gate" ||
               currentStep === "not_available"
             ? 100
             : 0;
@@ -133,7 +142,7 @@ export default function Quiz() {
             />
           </div>
           <p className="text-xs text-gray-500 mt-2 text-center">
-            {currentStep === "loading" || currentStep === "result" || currentStep === "not_available"
+            {currentStep === "loading" || currentStep === "result" || currentStep === "share_gate" || currentStep === "not_available"
               ? "Checking eligibility..."
               : `Question ${
                   currentStep === "q1"
@@ -304,6 +313,29 @@ export default function Quiz() {
             <p className="text-xs text-gray-500">
               No credit card required. Takes less than 5 minutes.
             </p>
+          </div>
+        )}
+
+        {/* Share Gate - unlocks the not_available/VPN screen */}
+        {currentStep === "share_gate" && (
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-300 text-center">
+            <div className="flex justify-center mb-6">
+              <Share2 className="w-16 h-16 text-purple-600" />
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">One Quick Step</h2>
+            <p className="text-gray-600 mb-8">
+              Share this pin on Pinterest to unlock your alternative offer below.
+            </p>
+
+            <Button
+              onClick={handleShareUnlock}
+              className="w-full h-14 text-base font-semibold bg-[#E60023] hover:bg-[#ad081b] text-white rounded-lg transition-all mb-4 shadow-md inline-flex items-center justify-center gap-2"
+            >
+              <Share2 className="w-5 h-5" />
+              Share on Pinterest to Unlock
+            </Button>
+
+            <p className="text-xs text-gray-500">Opens Pinterest in a new tab, then unlocks the offer below.</p>
           </div>
         )}
 
