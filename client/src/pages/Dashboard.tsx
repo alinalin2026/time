@@ -47,13 +47,16 @@ export default function Dashboard() {
         sessionStorage.removeItem(STORAGE_KEY);
         return;
       }
-      if (!res.ok) throw new Error("Failed to load");
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        throw new Error(body?.error || `Failed to load (${res.status})`);
+      }
       const json = (await res.json()) as DashboardData;
       setData(json);
       setAuthed(true);
       sessionStorage.setItem(STORAGE_KEY, pw);
-    } catch {
-      setError("Failed to load dashboard data");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to load dashboard data");
     } finally {
       setLoading(false);
     }

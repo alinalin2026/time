@@ -62,7 +62,10 @@ export default async function handler(request: Request) {
     });
   } catch (err) {
     console.error("dashboard-data failed", err);
-    return new Response(JSON.stringify({ error: "Redis not configured or unreachable" }), {
+    // TEMPORARY: return the real error message for debugging. Remove once
+    // /go/ tracking + dashboard are confirmed working.
+    const message = err instanceof Error ? err.message : String(err);
+    return new Response(JSON.stringify({ error: `Redis error: ${message}` }), {
       status: 500,
       headers: { "content-type": "application/json" },
     });
