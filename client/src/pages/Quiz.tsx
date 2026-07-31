@@ -20,6 +20,19 @@ const VPN_OFFER_URL =
 
 type QuizStep = "q1" | "q2" | "q3" | "q4" | "loading" | "result" | "not_available";
 
+// Reads the slug a visitor arrived through (set by /go/<slug>), so we can pass
+// it along to the affiliate offer as a sub-ID and see which source converts.
+function getTrafficSourceSlug(): string {
+  const match = document.cookie.match(/(?:^|;\s*)tr_src=([^;]+)/);
+  return match ? decodeURIComponent(match[1]) : "direct";
+}
+
+function withSubid(url: string): string {
+  const withParam = new URL(url);
+  withParam.searchParams.set("s1", getTrafficSourceSlug());
+  return withParam.toString();
+}
+
 interface QuizAnswers {
   q1: string | null; // "yes" | "not_now"
   q2: string | null; // "less_30" | "30_60" | "1_2_hrs" | "more_2_hrs"
@@ -68,13 +81,13 @@ export default function Quiz() {
   };
 
   const handleClaimSpot = () => {
-    // Tier 1 geo - send to the real offer
-    window.location.href = TIER1_OFFER_URL;
+    // Tier 1 geo - send to the real offer, tagged with the traffic source
+    window.location.href = withSubid(TIER1_OFFER_URL);
   };
 
   const handleTryVpn = () => {
-    // Non-tier-1 geo - send to the VPN offer instead
-    window.location.href = VPN_OFFER_URL;
+    // Non-tier-1 geo - send to the VPN offer instead, tagged the same way
+    window.location.href = withSubid(VPN_OFFER_URL);
   };
 
   const progressPercentage =
