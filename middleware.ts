@@ -13,6 +13,7 @@ async function middleware(request: Request) {
   const country = request.headers.get("x-vercel-ip-country") || "XX";
   const referrer = request.headers.get("referer") || "";
 
+  let debugError = "";
   try {
     const redis = getRedis();
     const entry = JSON.stringify({ ts: Date.now(), slug, country, referrer });
@@ -27,13 +28,22 @@ async function middleware(request: Request) {
   } catch (err) {
     // Don't block the redirect if Redis isn't reachable/configured - traffic
     // monitoring should never be the reason a visitor gets stuck.
+    debugError = err instanceof Error ? err.message : String(err);
     console.error("go-link tracking failed", err);
+  }
+
+  // TEMPORARY: surface a write failure directly in the redirect URL, since
+  // this environment has no access to Vercel's middleware function logs.
+  // Remove once /go/ tracking is confirmed working.
+  const dest = new URL("/", url.origin);
+  if (debugError) {
+    dest.searchParams.set("tr_debug", debugError.slice(0, 200));
   }
 
   return new Response(null, {
     status: 302,
     headers: {
-      Location: new URL("/", url.origin).toString(),
+      Location: dest.toString(),
       "Set-Cookie": `tr_src=${encodeURIComponent(slug)}; Path=/; Max-Age=2592000; SameSite=Lax; Secure`,
       "Cache-Control": "no-store",
     },
